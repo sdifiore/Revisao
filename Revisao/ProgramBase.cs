@@ -74,5 +74,20 @@ namespace Revisao
 
             return opcao;
         }
+
+        public static void Cabecalho()
+        {
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("===========================================================================");
+            Console.WriteLine();
+        }
+
+        public static void Fim()
+        {
+            Console.WriteLine();
+            Console.WriteLine("===========================================================================");
+            Console.WriteLine();
+        }
     }
 }

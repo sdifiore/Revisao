@@ -18,6 +18,7 @@ namespace Revisao
                 Console.WriteLine("[5] Selection Sort");
                 Console.WriteLine("[6] Insection Sort");
                 Console.WriteLine("[7] Pesquisa");
+                Console.WriteLine("=====================");
                 Console.ForegroundColor = ConsoleColor.White;
 
                 var ok = false;
@@ -60,7 +61,7 @@ namespace Revisao
 
         private static void XeqPrimo()
         {
-            Cabecalho();
+            ProgramBase.Cabecalho();
             
             for (int i = 2; i < 21; i++)
             {
@@ -68,7 +69,7 @@ namespace Revisao
                     Console.WriteLine(i);
             }
 
-            Fim();
+            ProgramBase.Fim();
         }
 
         private static void XeqBoletimEscolar()
@@ -84,9 +85,9 @@ namespace Revisao
             Console.WriteLine("3ª nota: ");
             boletim.Nota3 = float.Parse(Console.ReadLine());
 
-            Cabecalho();
+            ProgramBase.Cabecalho();
             Console.WriteLine($"A média do aluno {boletim.Aluno} é {boletim.Media}");
-            Fim();
+            ProgramBase.Fim();
         }
 
         private static void XeqNovoBoletim()
@@ -104,9 +105,9 @@ namespace Revisao
                 boletim.Notas.Add(float.Parse(Console.ReadLine()));
             }
 
-            Cabecalho();
+            ProgramBase.Cabecalho();
             Console.WriteLine($"A média do aluno {boletim.Aluno} é {boletim.Media}");
-            Fim();
+            ProgramBase.Fim();
         }
 
         private static void XeqBubbleSort()
@@ -121,9 +122,9 @@ namespace Revisao
             else
                 array = BubbleSort.Descende(array);
 
-            Cabecalho();
+            ProgramBase.Cabecalho();
             ProgramBase.PrintArray(array);
-            Fim();
+            ProgramBase.Fim();
         }
 
         private static void XeqSelectionSort()
@@ -138,9 +139,9 @@ namespace Revisao
             else
                 array = SelectionSort.Descende(array);
 
-            Cabecalho();
+            ProgramBase.Cabecalho();
             ProgramBase.PrintArray(array);
-            Fim();
+            ProgramBase.Fim();
         }
 
         private static void XeqInserctionSort()
@@ -155,9 +156,9 @@ namespace Revisao
             else
                 array = InsectionSort.Descende(array);
 
-            Cabecalho();
+            ProgramBase.Cabecalho();
             ProgramBase.PrintArray(array);
-            Fim();
+            ProgramBase.Fim();
         }
 
         private static void XeqPesquisa()
@@ -171,31 +172,28 @@ namespace Revisao
             Console.WriteLine("Que valor deseja pesquisar?");
             var pesquisar = double.Parse(Console.ReadLine());
             int posicao;
+            string fim = "\b";
 
             if (opcao == 1)
-                posicao  = Pesquisa.Sequencial(pesquisar, array);
-            else
+            {
                 posicao = Pesquisa.Sequencial(pesquisar, array);
+                fim = "não";
+            }
 
-            Cabecalho();
-            Console.WriteLine($"{pesquisar} encontra-se na posição {posicao} do vetor não classificado.");
-            Fim();
+            else
+                posicao = Pesquisa.Binaria(pesquisar, array);
+
+            ProgramBase.Cabecalho();
+
+            if( posicao == int.MinValue)
+                Console.WriteLine("O valor não existe no vetor fornecido");
+            else
+                Console.WriteLine($"{pesquisar} encontra-se na posição {posicao} do vetor {fim} classificado.");
+            
+            ProgramBase.Fim();
         }
 
-        private static void Cabecalho()
-        {
-            Console.WriteLine();
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("===========================================================================");
-            Console.WriteLine();
-        }
-
-        private static void Fim()
-        {
-            Console.WriteLine();
-            Console.WriteLine("===========================================================================");
-            Console.WriteLine();
-        }
+        
     }
 }
 
