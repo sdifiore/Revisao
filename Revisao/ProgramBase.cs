@@ -59,5 +59,20 @@ namespace Revisao
 
             return sortArray;
         }
+
+        public static int GetPesquisa()
+        {
+            var opcao = 0;
+
+            while (opcao != 1 && opcao != 2)
+            {
+                Console.WriteLine();
+                Console.WriteLine("Escolha o tipo de pesquisa:");
+                Console.WriteLine("[1] Sequencial    [2] Binária");
+                opcao = int.Parse(Console.ReadKey().KeyChar.ToString());
+            }
+
+            return opcao;
+        }
     }
 }
