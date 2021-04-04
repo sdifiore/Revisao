@@ -1,4 +1,6 @@
-﻿namespace Revisao
+﻿using System;
+
+namespace Revisao
 {
     public static class BubbleSort
     {

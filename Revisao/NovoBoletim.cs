@@ -14,6 +14,7 @@ namespace Revisao
             get
             {
                 media = 0;
+
                 foreach (var nota in Notas)
                     media += nota;
 

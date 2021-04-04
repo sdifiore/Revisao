@@ -21,20 +21,29 @@
             return i + 1;
         }
 
-        public static int Binaria(double pesquisa, double[] sortArray)
+        public static int Binaria(double chave, double[] sortArray)
         {
-            var sentido = ProgramBase.GetSentido();
+            sortArray = InsectionSort.Ascende(sortArray);
+            
+            var piso = 0;
+            var numElementos = sortArray.Length;
+            var teto = numElementos - 1;
 
-            if (sentido == 1)
-                sortArray = InsectionSort.Ascende(sortArray);
-            else
-                sortArray = InsectionSort.Descende(sortArray);
+            do
+            {
+                var meio = (piso + teto) / 2;
 
-            { }
+                if (sortArray[meio] == chave)
+                    return meio + 1;
 
-            var posicao = Sequencial(pesquisa, sortArray);
+                if (chave > sortArray[meio])
+                    piso = meio + 1;
+                else
+                    teto = meio - 1;
 
-            return posicao;
+            } while (piso <= teto);
+
+            return int.MinValue;
         }
     }
 }

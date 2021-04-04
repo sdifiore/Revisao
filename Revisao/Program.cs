@@ -10,7 +10,7 @@ namespace Revisao
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("Selecione uma opção: ");
-                Console.WriteLine("=====================");
+                Console.WriteLine("===========================");
                 Console.WriteLine("[1] É Primo");
                 Console.WriteLine("[2] Boletim");
                 Console.WriteLine("[3] Novo Boletim");
@@ -18,7 +18,7 @@ namespace Revisao
                 Console.WriteLine("[5] Selection Sort");
                 Console.WriteLine("[6] Insection Sort");
                 Console.WriteLine("[7] Pesquisa");
-                Console.WriteLine("=====================");
+                Console.WriteLine("===========================");
                 Console.ForegroundColor = ConsoleColor.White;
 
                 var ok = false;
@@ -53,6 +53,7 @@ namespace Revisao
                     case 7:
                         XeqPesquisa();
                         break;
+
                     default:
                         break;
                 }
@@ -62,8 +63,10 @@ namespace Revisao
         private static void XeqPrimo()
         {
             ProgramBase.Cabecalho();
+            Console.WriteLine("Até que número deseja pesquisar?");
+            var teto = int.Parse(Console.ReadLine());
             
-            for (int i = 2; i < 21; i++)
+            for (int i = 2; i < teto; i++)
             {
                 if (Numero.IsPrime(i))
                     Console.WriteLine(i);
@@ -192,8 +195,5 @@ namespace Revisao
             
             ProgramBase.Fim();
         }
-
-        
     }
 }
-
