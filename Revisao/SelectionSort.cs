@@ -1,9 +1,12 @@
-﻿namespace Revisao
+﻿using System;
+
+namespace Revisao
 {
     public static class SelectionSort
     {
-        public static double[] Ascende(double[] sortArray)
+        public static CronArray Ascende(double[] sortArray)
         {
+            var startTime = DateTime.Now;
             var dimensao = sortArray.Length;
 
             for (int i = dimensao - 1; i > 0; i--)
@@ -21,11 +24,14 @@
                 sortArray[maiorIndex] = calice;
             }
 
-            return sortArray;
+            var retorno = new CronArray { ArrayValues = sortArray, Duracao = DateTime.Now - startTime };
+
+            return retorno;
         }
 
-        public static double[] Descende(double[] sortArray)
+        public static CronArray Descende(double[] sortArray)
         {
+            var startTime = DateTime.Now;
             var dimensao = sortArray.Length;
 
             for (int i = dimensao - 1; i > 0; i--)
@@ -43,7 +49,9 @@
                 sortArray[maiorIndex] = calice;
             }
 
-            return sortArray;
+            var retorno = new CronArray { ArrayValues = sortArray, Duracao = DateTime.Now - startTime };
+
+            return retorno;
         }
     }
 }

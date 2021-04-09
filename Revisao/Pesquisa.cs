@@ -2,48 +2,55 @@
 {
     public static class Pesquisa
     {
-        public static int Sequencial(double pesquisa, double[] sortArray)
+        public static Resultado Sequencial(double pesquisa, double[] sortArray)
         {
             var i = 0;
-            var encontrado = false;
+            var resultado = new Resultado();
 
             for (i = 0; i < sortArray.Length - 1; i++)
                 if (sortArray[i] == pesquisa)
                 {
-                    encontrado = true;
+                    resultado.Encontrado = true;
                     break;
                 }
 
+            resultado.Posicao = resultado.Posicao + 1;
 
-            if (!encontrado)
-                i = int.MaxValue;
-
-            return i + 1;
+            return resultado;
         }
 
-        public static int Binaria(double chave, double[] sortArray)
+        public static Resultado Binaria(double chave, double[] sortArray)
         {
-            sortArray = InsectionSort.Ascende(sortArray);
+            var array = new CronArray();
+            array = InsectionSort.Ascende(sortArray);
             
             var piso = 0;
-            var numElementos = sortArray.Length;
-            var teto = numElementos - 1;
+            var teto = sortArray.Length - 1;
+            var resultado = new Resultado();
+            resultado.Encontrado = false;
 
             do
             {
                 var meio = (piso + teto) / 2;
 
                 if (sortArray[meio] == chave)
-                    return meio + 1;
+                {
+                    resultado.Encontrado = true;
+                    resultado.Posicao = meio + 1;
+
+                    return resultado;
+                }
 
                 if (chave > sortArray[meio])
                     piso = meio + 1;
                 else
                     teto = meio - 1;
 
-            } while (piso <= teto);
+            }
+            
+            while (piso <= teto);
 
-            return int.MinValue;
+            return resultado;
         }
     }
 }

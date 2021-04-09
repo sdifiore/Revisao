@@ -119,14 +119,15 @@ namespace Revisao
             var dimensao = ProgramBase.GetDimension();
             var array = ProgramBase.GetArray(dimensao);
             var opcao = ProgramBase.GetSentido();
+            var resultado = new CronArray();
 
             if (opcao == 1)
-                array = BubbleSort.Ascende(array);
+                resultado = BubbleSort.Ascende(array);
             else
-                array = BubbleSort.Descende(array);
+                resultado = BubbleSort.Descende(array);
 
             ProgramBase.Cabecalho();
-            ProgramBase.PrintArray(array);
+            ProgramBase.PrintArray(resultado);
             ProgramBase.Fim();
         }
 
@@ -136,14 +137,15 @@ namespace Revisao
             var dimensao = ProgramBase.GetDimension();
             var array = ProgramBase.GetArray(dimensao);
             var opcao = ProgramBase.GetSentido();
+            var resultado = new CronArray();
 
             if (opcao == 1)
-                array = SelectionSort.Ascende(array);
+                resultado = SelectionSort.Ascende(array);
             else
-                array = SelectionSort.Descende(array);
+                resultado = SelectionSort.Descende(array);
 
             ProgramBase.Cabecalho();
-            ProgramBase.PrintArray(array);
+            ProgramBase.PrintArray(resultado);
             ProgramBase.Fim();
         }
 
@@ -153,14 +155,15 @@ namespace Revisao
             var dimensao = ProgramBase.GetDimension();
             var array = ProgramBase.GetArray(dimensao);
             var opcao = ProgramBase.GetSentido();
+            var resultado = new CronArray();
 
             if (opcao == 1)
-                array = InsectionSort.Ascende(array);
+                resultado = InsectionSort.Ascende(array);
             else
-                array = InsectionSort.Descende(array);
+                resultado = InsectionSort.Descende(array);
 
             ProgramBase.Cabecalho();
-            ProgramBase.PrintArray(array);
+            ProgramBase.PrintArray(resultado);
             ProgramBase.Fim();
         }
 
@@ -174,24 +177,24 @@ namespace Revisao
             Console.WriteLine();
             Console.WriteLine("Que valor deseja pesquisar?");
             var pesquisar = double.Parse(Console.ReadLine());
-            int posicao;
+            var resultado = new Resultado();
             string fim = "\b";
 
             if (opcao == 1)
             {
-                posicao = Pesquisa.Sequencial(pesquisar, array);
+                resultado = Pesquisa.Sequencial(pesquisar, array);
                 fim = "não";
             }
 
             else
-                posicao = Pesquisa.Binaria(pesquisar, array);
+                resultado = Pesquisa.Binaria(pesquisar, array);
 
             ProgramBase.Cabecalho();
 
-            if( posicao == int.MinValue)
+            if( !resultado.Encontrado)
                 Console.WriteLine("O valor não existe no vetor fornecido");
             else
-                Console.WriteLine($"{pesquisar} encontra-se na posição {posicao} do vetor {fim} classificado.");
+                Console.WriteLine($"{pesquisar} encontra-se na posição {resultado.Posicao} do vetor {fim} classificado.");
             
             ProgramBase.Fim();
         }

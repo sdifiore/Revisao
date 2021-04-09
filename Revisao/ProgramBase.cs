@@ -4,13 +4,15 @@ namespace Revisao
 {
     public static class ProgramBase
     {
-        public static void PrintArray(double[] array)
+        public static void PrintArray(CronArray array)
         {
             Console.WriteLine();
 
-            foreach (var item in array)
+            foreach (var item in array.ArrayValues)
                 Console.WriteLine(item);
 
+            Console.WriteLine();
+            Console.WriteLine($"Tempo de processamento: {array.Duracao}");
             Console.WriteLine();
         }
 

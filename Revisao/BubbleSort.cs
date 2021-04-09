@@ -4,8 +4,9 @@ namespace Revisao
 {
     public static class BubbleSort
     {
-        public static double[] Ascende(double[] sortArray)
+        public static CronArray Ascende(double[] sortArray)
         {
+            var startTime = DateTime.Now;
             var dimensao = sortArray.Length;
 
             for (int i = 1; i < dimensao; i++)
@@ -21,11 +22,14 @@ namespace Revisao
                 }
             }
 
-            return sortArray;
+            var retorno = new CronArray { ArrayValues = sortArray, Duracao = DateTime.Now - startTime };
+
+            return retorno;
         }
 
-        public static double[] Descende(double[] sortArray)
+        public static CronArray Descende(double[] sortArray)
         {
+            var startTime = DateTime.Now;
             var dimensao = sortArray.Length;
 
             for (int i = 1; i < dimensao; i++)
@@ -41,7 +45,9 @@ namespace Revisao
                 }
             }
 
-            return sortArray;
+            var retorno = new CronArray { ArrayValues = sortArray, Duracao = DateTime.Now - startTime };
+
+            return retorno;
         }
     }
 }
