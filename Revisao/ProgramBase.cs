@@ -77,6 +77,24 @@ namespace Revisao
             return opcao;
         }
 
+        public static int GetListaSeqOpcao()
+        {
+
+            var opcao = 0;
+
+            while (opcao < 1 || opcao > 3)
+            {
+                Console.WriteLine();
+                Console.WriteLine("O que deseja fazer?");
+                Console.WriteLine("[1] Inserir valor");
+                Console.WriteLine("[2] Eliminar valor");
+                Console.WriteLine("[3] Encerrar");
+                opcao = int.Parse(Console.ReadKey().KeyChar.ToString());
+            }
+
+            return opcao;
+        }
+
         public static void Cabecalho()
         {
             Console.WriteLine();

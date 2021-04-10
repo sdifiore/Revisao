@@ -18,6 +18,7 @@ namespace Revisao
                 Console.WriteLine("[5] Selection Sort");
                 Console.WriteLine("[6] Insection Sort");
                 Console.WriteLine("[7] Pesquisa");
+                Console.WriteLine("[8] Lista Sequencial");
                 Console.WriteLine("===========================");
                 Console.ForegroundColor = ConsoleColor.White;
 
@@ -53,6 +54,9 @@ namespace Revisao
                     case 7:
                         XeqPesquisa();
                         break;
+                    case 8:
+                        XeqListaSequencial();
+                        break;
 
                     default:
                         break;
@@ -78,6 +82,8 @@ namespace Revisao
         private static void XeqBoletimEscolar()
         {
             var boletim = new BoletimEscolar();
+
+            ProgramBase.Cabecalho();
 
             Console.WriteLine("Nome do aluno: ");
             boletim.Aluno = Console.ReadLine();
@@ -195,6 +201,45 @@ namespace Revisao
                 Console.WriteLine("O valor não existe no vetor fornecido");
             else
                 Console.WriteLine($"{pesquisar} encontra-se na posição {resultado.Posicao} do vetor {fim} classificado.");
+            
+            ProgramBase.Fim();
+        }
+
+        private static void XeqListaSequencial()
+        {
+            ProgramBase.Cabecalho();
+
+            Console.WriteLine("De que tamanho deseja a lista: ");
+            var tamanho = int.Parse(Console.ReadLine());
+
+            var listaSeq = new ListaSeq();
+
+            listaSeq.CriaLista(tamanho);
+
+            var acao = 0;
+
+            while (acao != 3)
+            {
+                if (acao == 1)
+                {
+                    var mensagem = "Valor inserido com sucesso";
+
+                    Console.WriteLine("Digite o valor: ");
+                    var valor = Console.ReadLine();
+
+                    if (!listaSeq.Insere(valor))
+                        mensagem = "Erro: Lista cheia";
+
+                    Console.WriteLine(mensagem);
+
+                    for (int i = 0; i < listaSeq.Tamanho(); i++)
+                        Console.WriteLine($"{i}: ");
+                        
+                }
+            }
+            
+
+            ProgramBase.Cabecalho();
             
             ProgramBase.Fim();
         }
