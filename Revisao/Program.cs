@@ -19,6 +19,7 @@ namespace Revisao
                 Console.WriteLine("[6] Insection Sort");
                 Console.WriteLine("[7] Pesquisa");
                 Console.WriteLine("[8] Lista Sequencial");
+                Console.WriteLine("[9] Lista Encadeada");
                 Console.WriteLine("===========================");
                 Console.ForegroundColor = ConsoleColor.White;
 
@@ -56,6 +57,9 @@ namespace Revisao
                         break;
                     case 8:
                         XeqListaSequencial();
+                        break;
+                    case 9:
+                        XeqListaEncadeada();
                         break;
 
                     default:
@@ -218,30 +222,118 @@ namespace Revisao
 
             var acao = 0;
 
-            while (acao != 3)
+            do
+
             {
+                acao = ProgramBase.GetListaSeqOpcao();
+
                 if (acao == 1)
-                {
-                    var mensagem = "Valor inserido com sucesso";
-
-                    Console.WriteLine("Digite o valor: ");
-                    var valor = Console.ReadLine();
-
-                    if (!listaSeq.Insere(valor))
-                        mensagem = "Erro: Lista cheia";
-
-                    Console.WriteLine(mensagem);
-
-                    for (int i = 0; i < listaSeq.Tamanho(); i++)
-                        Console.WriteLine($"{i}: ");
-                        
-                }
+                    XeqInsereSequencial(listaSeq);
+                else if (acao == 2)
+                    XeqDelLastElementSeq(listaSeq);
+                else
+                    break;
             }
-            
 
-            ProgramBase.Cabecalho();
-            
+            while (acao != 3);
+
             ProgramBase.Fim();
+        }
+
+        private static void XeqInsereSequencial(ListaSeq listaSeq)
+        {
+            var mensagem = "Valor inserido com sucesso";
+
+            Console.WriteLine("Digite o valor: ");
+            var valor = Console.ReadLine();
+
+            if (!listaSeq.Insere(valor))
+                mensagem = "Erro: Lista cheia";
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine(mensagem);
+            Console.ForegroundColor = ConsoleColor.Green;
+
+            XeqListListasequencial(listaSeq);
+        }
+
+        private static void XeqListListasequencial(ListaSeq listaSeq)
+        {
+            var lista = listaSeq.ListLista();
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+
+            for (int i = 0; i < listaSeq.Tamanho(); i++)
+                Console.WriteLine($"{i}: {lista[i]}");
+
+            Console.ForegroundColor = ConsoleColor.Green;
+        }
+
+        private static void XeqDelLastElementSeq(ListaSeq listaSeq)
+        {
+            listaSeq.DelLast();
+            XeqListListasequencial(listaSeq);
+        }
+
+        private static void XeqListaEncadeada()
+        {
+            ProgramBase.Cabecalho();
+
+            Console.WriteLine("De que tamanho deseja a lista: ");
+            var tamanho = int.Parse(Console.ReadLine());
+
+            var listChain = new ListChain();
+
+            listChain.CriaLista(tamanho);
+
+            var acao = 0;
+
+            do
+
+            {
+                acao = ProgramBase.GetListaSeqOpcao();
+
+                if (acao == 1)
+                    XeqInsereEncadeado(listChain);
+                //else if (acao == 2)
+                //    XeqDelLastElementSeq(listaSeq);
+                else
+                    break;
+            }
+
+            while (acao != 3);
+
+            ProgramBase.Fim();
+
+        }
+
+        private static void XeqInsereEncadeado(ListChain listChain)
+        {
+            var mensagem = "Valor inserido com sucesso";
+
+            Console.WriteLine("Digite o valor: ");
+            var valor = Console.ReadLine();
+
+            if (!listChain.Insere(valor))
+                mensagem = "Erro: Lista cheia";
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine(mensagem);
+            Console.ForegroundColor = ConsoleColor.Green;
+
+            XeqListListaEncadeado(listChain);
+        }
+
+        private static void XeqListListaEncadeado(ListChain listChain)
+        {
+            var lista = listChain.ListLista();
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+
+            for (int i = 0; i < lista.Length; i++)
+                Console.WriteLine($"{i}: {lista[i]}");
+
+            Console.ForegroundColor = ConsoleColor.Green;
         }
     }
 }

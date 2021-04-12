@@ -86,10 +86,13 @@ namespace Revisao
             {
                 Console.WriteLine();
                 Console.WriteLine("O que deseja fazer?");
+                Console.WriteLine("-------------------");
                 Console.WriteLine("[1] Inserir valor");
                 Console.WriteLine("[2] Eliminar valor");
                 Console.WriteLine("[3] Encerrar");
                 opcao = int.Parse(Console.ReadKey().KeyChar.ToString());
+                Console.WriteLine();
+                Console.WriteLine();
             }
 
             return opcao;
