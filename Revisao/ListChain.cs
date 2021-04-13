@@ -6,6 +6,7 @@ namespace Revisao
     {
         private RegChain _lista;
         private int _maxSize;
+        private bool _naoIniciado;
         private readonly Random _random = new Random();
 
         public void CriaLista(int maxSize)
@@ -17,26 +18,56 @@ namespace Revisao
                 _lista.Lista[i] = string.Empty;
 
             _lista.PonteiroInicio = GetRandonFreeAddress(_lista);
-            _lista.Indice[_lista.PonteiroInicio] = 0;
+            _lista.Indice[_lista.PonteiroInicio] = -1;
+            _naoIniciado = true;
         }
 
         public bool Insere(string valor)
         {
+            int anterior;
             var tamanho = Tamanho();
 
             if (tamanho == _maxSize)
                 return false;
 
-            var ponteiro = _lista.PonteiroInicio;
+            if (_naoIniciado)
+            {
+                _naoIniciado = false;
+                anterior = _lista.PonteiroInicio;
+                _lista.Lista[_lista.PonteiroInicio] = valor;
+            }
 
-            for (int i = 0; i < tamanho; i++)
-                ponteiro = _lista.Indice[i];
+            else
+            {
+                anterior = _lista.PonteiroInicio;
+                var ponteiro = _lista.PonteiroInicio;
 
-            var address = GetRandonFreeAddress(_lista);
-            _lista.Indice[ponteiro] = address;
-            _lista.Lista[address] = valor;
+                while (_lista.Indice[ponteiro] != -1)
+                {
+                    anterior = ponteiro;
+                    ponteiro = _lista.Indice[ponteiro];
+                }
+
+                anterior = ponteiro;
+                ponteiro = _lista.Indice[ponteiro];
+
+                var address = GetRandonFreeAddress(_lista);
+                _lista.Lista[address] = valor;
+                _lista.Indice[address] = -1;
+                _lista.Indice[anterior] = address;
+
+            }
+
+            Console.WriteLine($"Início: {_lista.PonteiroInicio}");
 
             return true;
+        }
+
+        public void Delete(int indice)
+        {
+            var ponteiro = _lista.PonteiroInicio;
+
+
         }
 
         private int GetRandonFreeAddress(RegChain regChain)
@@ -67,14 +98,9 @@ namespace Revisao
             return contador;
         }
 
-        public string[] ListLista()
+        public RegChain ListLista()
         {
-            var resultado = new string[_maxSize];
-
-            for (int i = 0; i < _maxSize; i++)
-                resultado[i] = _lista.Lista[i];
-
-            return resultado;
+            return _lista;
         }
     }
 }

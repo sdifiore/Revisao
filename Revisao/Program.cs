@@ -326,12 +326,12 @@ namespace Revisao
 
         private static void XeqListListaEncadeado(ListChain listChain)
         {
-            var lista = listChain.ListLista();
-
             Console.ForegroundColor = ConsoleColor.Cyan;
 
-            for (int i = 0; i < lista.Length; i++)
-                Console.WriteLine($"{i}: {lista[i]}");
+            var regChain = listChain.ListLista();
+
+            for (int i = 0; i < regChain.Lista.Length; i++)
+                Console.WriteLine($"Posição: {i} - Índice: {regChain.Indice[i].ToString()} - Valor: {regChain.Lista[i]}");
 
             Console.ForegroundColor = ConsoleColor.Green;
         }

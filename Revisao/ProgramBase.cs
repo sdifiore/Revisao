@@ -90,7 +90,10 @@ namespace Revisao
                 Console.WriteLine("[1] Inserir valor");
                 Console.WriteLine("[2] Eliminar valor");
                 Console.WriteLine("[3] Encerrar");
-                opcao = int.Parse(Console.ReadKey().KeyChar.ToString());
+
+                if (!int.TryParse(Console.ReadKey().KeyChar.ToString(), out opcao))
+                    opcao = 0;
+
                 Console.WriteLine();
                 Console.WriteLine();
             }
