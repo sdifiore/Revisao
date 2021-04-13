@@ -334,7 +334,16 @@ namespace Revisao
             Console.ForegroundColor = ConsoleColor.Cyan;
 
             for (int i = 0; i < regChain.Lista.Length; i++)
-                Console.WriteLine($"Posição: {i} - Índice: {regChain.Indice[i].ToString()} - Valor: {regChain.Lista[i]}");
+            {
+                string valor;
+
+                if (regChain.Lista[i] == string.Empty)
+                    valor = "-------";
+                else
+                    valor = regChain.Lista[i];
+
+                Console.WriteLine($"Posição: {i} - Aponta para: {regChain.Indice[i].ToString()} - Valor: {valor}");
+            }
 
             Console.ForegroundColor = ConsoleColor.Green;
         }

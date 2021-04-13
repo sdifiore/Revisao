@@ -28,6 +28,14 @@ namespace Revisao
             if (Tamanho() == _maxSize)
                 return false;
 
+            var address = 0;
+
+            if (_lista.PonteiroDisponivel != -1)
+            {
+                address = _lista.PonteiroDisponivel;
+                _lista.PonteiroDisponivel = -1;
+            }
+
             int anterior;
 
             if (_naoIniciado)
@@ -51,7 +59,9 @@ namespace Revisao
                 anterior = ponteiro;
                 ponteiro = _lista.Indice[ponteiro];
 
-                var address = GetRandonFreeAddress(_lista);
+                if (address == 0)
+                    address = GetRandonFreeAddress(_lista);
+
                 _lista.Lista[address] = valor;
                 _lista.Indice[address] = -1;
                 _lista.Indice[anterior] = address;
@@ -65,6 +75,7 @@ namespace Revisao
         {
             _lista.Indice[QuemAponta(indice)] = _lista.Indice[indice];
             _lista.PonteiroDisponivel = indice;
+            _lista.Lista[indice] = string.Empty;
             _lista.Indice[indice] = 0;
         }
 
