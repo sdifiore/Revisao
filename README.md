@@ -2,4 +2,4 @@
 
 Meant to teach college mates Data Structure subject.
 
-Note that the main concern was didactics rather than other concerns
+The main concern here is didactics rather than others.
