@@ -295,8 +295,8 @@ namespace Revisao
 
                 if (acao == 1)
                     XeqInsereEncadeado(listChain);
-                //else if (acao == 2)
-                //    XeqDelLastElementSeq(listaSeq);
+                else if (acao == 2)
+                    XeqDeleteEncadeadoByIndex(listChain);
                 else
                     break;
             }
@@ -326,14 +326,27 @@ namespace Revisao
 
         private static void XeqListListaEncadeado(ListChain listChain)
         {
-            Console.ForegroundColor = ConsoleColor.Cyan;
-
             var regChain = listChain.ListLista();
+
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine($"Apontador de início: {regChain.PonteiroInicio}");
+            Console.WriteLine($"Apontador de disponibilidade: {regChain.PonteiroDisponivel}");
+            Console.ForegroundColor = ConsoleColor.Cyan;
 
             for (int i = 0; i < regChain.Lista.Length; i++)
                 Console.WriteLine($"Posição: {i} - Índice: {regChain.Indice[i].ToString()} - Valor: {regChain.Lista[i]}");
 
             Console.ForegroundColor = ConsoleColor.Green;
+        }
+
+        private static void XeqDeleteEncadeadoByIndex(ListChain listChain)
+        {
+            Console.WriteLine("Digite o índice do valor que deseja eliminar: ");
+            var valor = int.Parse(Console.ReadLine());
+
+            listChain.DeleteByIndex(valor);
+
+            XeqListListaEncadeado(listChain);
         }
     }
 }

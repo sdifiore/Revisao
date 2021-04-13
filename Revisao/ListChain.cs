@@ -19,16 +19,16 @@ namespace Revisao
 
             _lista.PonteiroInicio = GetRandonFreeAddress(_lista);
             _lista.Indice[_lista.PonteiroInicio] = -1;
+            _lista.PonteiroDisponivel = -1;
             _naoIniciado = true;
         }
 
         public bool Insere(string valor)
         {
-            int anterior;
-            var tamanho = Tamanho();
-
-            if (tamanho == _maxSize)
+            if (Tamanho() == _maxSize)
                 return false;
+
+            int anterior;
 
             if (_naoIniciado)
             {
@@ -58,16 +58,28 @@ namespace Revisao
 
             }
 
-            Console.WriteLine($"Início: {_lista.PonteiroInicio}");
-
             return true;
         }
 
-        public void Delete(int indice)
+        public void DeleteByIndex(int indice)
         {
-            var ponteiro = _lista.PonteiroInicio;
+            _lista.Indice[QuemAponta(indice)] = _lista.Indice[indice];
+            _lista.PonteiroDisponivel = indice;
+            _lista.Indice[indice] = 0;
+        }
 
+        private int QuemAponta(int paraMim)
+        {
+            var anterior = paraMim;
+            var pesquisa = _lista.PonteiroInicio;
 
+            while (pesquisa != paraMim)
+            {
+                anterior = pesquisa;
+                pesquisa = _lista.Indice[pesquisa];
+            }
+
+            return anterior;
         }
 
         private int GetRandonFreeAddress(RegChain regChain)
