@@ -15,7 +15,10 @@ namespace Revisao
             _lista = new RegChain(maxSize);
 
             for (int i = 0; i < _maxSize; i++)
+            {
                 _lista.Lista[i] = string.Empty;
+                _lista.Indice[i] = -2;
+            }
 
             _lista.PonteiroInicio = GetRandonFreeAddress(_lista);
             _lista.Indice[_lista.PonteiroInicio] = -1;
@@ -73,10 +76,20 @@ namespace Revisao
 
         public void DeleteByIndex(int indice)
         {
-            _lista.Indice[QuemAponta(indice)] = _lista.Indice[indice];
-            _lista.PonteiroDisponivel = indice;
-            _lista.Lista[indice] = string.Empty;
-            _lista.Indice[indice] = 0;
+            if (indice == _lista.PonteiroInicio)
+            {
+                _lista.PonteiroInicio = _lista.Indice[indice];
+                _lista.Indice[indice] = -2;
+                _lista.Lista[indice] = string.Empty;
+            }
+
+            else
+            {
+                _lista.Indice[QuemAponta(indice)] = _lista.Indice[indice];
+                _lista.PonteiroDisponivel = indice;
+                _lista.Lista[indice] = string.Empty;
+                _lista.Indice[indice] = -2;
+            }
         }
 
         private int QuemAponta(int paraMim)

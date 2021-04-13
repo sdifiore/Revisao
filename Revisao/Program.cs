@@ -335,14 +335,19 @@ namespace Revisao
 
             for (int i = 0; i < regChain.Lista.Length; i++)
             {
-                string valor;
+                string indice, valor;
+
+                if(regChain.Indice[i] < 0)
+                    indice = regChain.Indice[i].ToString();
+                else
+                    indice = $" {regChain.Indice[i].ToString()}";
 
                 if (regChain.Lista[i] == string.Empty)
                     valor = "-------";
                 else
                     valor = regChain.Lista[i];
 
-                Console.WriteLine($"Posição: {i} - Aponta para: {regChain.Indice[i].ToString()} - Valor: {valor}");
+                Console.WriteLine($"Posição: {i} - Aponta para: {indice} - Valor: {valor}");
             }
 
             Console.ForegroundColor = ConsoleColor.Green;
