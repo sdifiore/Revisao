@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Drawing;
+using System.Net;
 
 namespace Revisao
 {
@@ -68,6 +70,7 @@ namespace Revisao
             }
 
             return true;
+
         }
 
         public void DeleteByIndex(int indice)
@@ -83,6 +86,9 @@ namespace Revisao
 
             _lista.Indice[indice] = -2;
             _lista.Lista[indice] = string.Empty;
+
+            if (Tamanho() == 0)
+                CriaLista();
         }
 
         private int QuemAponta(int paraMim)

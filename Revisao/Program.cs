@@ -12,7 +12,7 @@ namespace Revisao
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("Selecione uma opção: ");
-                Console.WriteLine("============================");
+                Console.WriteLine("=============================");
                 Console.WriteLine("[0] Encerra");
                 Console.WriteLine("[1] Números Primos");
                 Console.WriteLine("[2] Boletim");
@@ -21,9 +21,9 @@ namespace Revisao
                 Console.WriteLine("[5] Selection Sort");
                 Console.WriteLine("[6] Insection Sort");
                 Console.WriteLine("[7] Pesquisa");
-                Console.WriteLine("[8] Lista Sequencial");
-                Console.WriteLine("[9] Lista Encadeada");
-                Console.WriteLine("============================");
+                Console.WriteLine("[8] Lista Sequencial Estática");
+                Console.WriteLine("[9] Lista Encadeada Dinâmica");
+                Console.WriteLine("=============================");
                 Console.ForegroundColor = ConsoleColor.White;
 
                 var ok = false;
@@ -332,8 +332,9 @@ namespace Revisao
         {
             var regChain = listChain.ListLista();
 
-            Console.ForegroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine($"Apontador de início: {regChain.PonteiroInicio}");
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine($"Apontador de disponibilidade: {regChain.PonteiroDisponivel}");
             Console.ForegroundColor = ConsoleColor.Cyan;
 
