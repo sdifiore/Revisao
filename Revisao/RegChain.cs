@@ -16,6 +16,13 @@ namespace Revisao
         {
             Lista = new string[maxSize];
             Indice = new int[maxSize];
+            PonteiroDisponivel = -1;
+
+            for (int i = 0; i < maxSize; i++)
+            {
+                Lista[i] = string.Empty;
+                Indice[i] = -2;
+            }
         }
     }
 }

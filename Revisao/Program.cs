@@ -6,12 +6,15 @@ namespace Revisao
     {
         static void Main()
         {
-            while (true)
+            int opcao = 0;
+
+            do
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("Selecione uma opção: ");
-                Console.WriteLine("===========================");
-                Console.WriteLine("[1] É Primo");
+                Console.WriteLine("============================");
+                Console.WriteLine("[0] Encerra");
+                Console.WriteLine("[1] Números Primos");
                 Console.WriteLine("[2] Boletim");
                 Console.WriteLine("[3] Novo Boletim");
                 Console.WriteLine("[4] Buble Sort");
@@ -20,11 +23,10 @@ namespace Revisao
                 Console.WriteLine("[7] Pesquisa");
                 Console.WriteLine("[8] Lista Sequencial");
                 Console.WriteLine("[9] Lista Encadeada");
-                Console.WriteLine("===========================");
+                Console.WriteLine("============================");
                 Console.ForegroundColor = ConsoleColor.White;
 
                 var ok = false;
-                int opcao = 0;
 
                 while (!ok)
                     ok = int.TryParse(Console.ReadLine(), out opcao);
@@ -66,6 +68,8 @@ namespace Revisao
                         break;
                 }
             }
+
+            while (opcao > 0);
         }
 
         private static void XeqPrimo()
@@ -282,9 +286,9 @@ namespace Revisao
             Console.WriteLine("De que tamanho deseja a lista: ");
             var tamanho = int.Parse(Console.ReadLine());
 
-            var listChain = new ListChain();
+            var listChain = new ListChain(tamanho);
 
-            listChain.CriaLista(tamanho);
+            listChain.CriaLista();
 
             var acao = 0;
 
@@ -337,7 +341,7 @@ namespace Revisao
             {
                 string indice, valor;
 
-                if(regChain.Indice[i] < 0)
+                if (regChain.Indice[i] < 0)
                     indice = regChain.Indice[i].ToString();
                 else
                     indice = $" {regChain.Indice[i].ToString()}";
@@ -355,8 +359,14 @@ namespace Revisao
 
         private static void XeqDeleteEncadeadoByIndex(ListChain listChain)
         {
-            Console.WriteLine("Digite o índice do valor que deseja eliminar: ");
-            var valor = int.Parse(Console.ReadLine());
+            var valor = 0;
+            var parsed = false;
+
+            while (!parsed)
+            {
+                Console.WriteLine("Digite o índice do valor que deseja eliminar: ");
+                parsed = int.TryParse(Console.ReadLine(),out valor);
+            }
 
             listChain.DeleteByIndex(valor);
 

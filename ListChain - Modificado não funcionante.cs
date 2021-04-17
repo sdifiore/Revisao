@@ -1,26 +1,27 @@
-﻿using System;
+using System;
+using System.Net;
 
 namespace Revisao
 {
     public class ListChain
     {
-        private RegChain _lista;
         private int _maxSize;
-        private bool _naoIniciada;
+        private RegChain _lista;
         private readonly Random _random = new Random();
 
-        public ListChain(int maxSize)
+        public void CriaLista(int maxSize)
         {
-            _random = new Random();
             _maxSize = maxSize;
             _lista = new RegChain(maxSize);
-        }
 
-        public void CriaLista()
-        {
-            _lista.PonteiroInicio = GetRandonFreeAddress(_lista);
-            _lista.Indice[_lista.PonteiroInicio] = -1;
-            _naoIniciada = true;
+            for (int i = 0; i < _maxSize; i++)
+            {
+                _lista.Lista[i] = string.Empty;
+                _lista.Indice[i] = -2;
+            }
+
+            //_lista.PonteiroInicio = GetNextFreeAddress();
+            //_lista.Indice[_lista.PonteiroInicio] = -1;
         }
 
         public bool Insere(string valor)
@@ -28,26 +29,17 @@ namespace Revisao
             if (Tamanho() == _maxSize)
                 return false;
 
-            var address = 0;
+            var address = GetNextFreeAddress();
 
-            if (_lista.PonteiroDisponivel != -1)
+            if (_lista.PonteiroInicio == -1)
             {
-                address = _lista.PonteiroDisponivel;
-                _lista.PonteiroDisponivel = -1;
-            }
-
-            int anterior;
-
-            if (_naoIniciada)
-            {
-                _naoIniciada = false;
-                anterior = _lista.PonteiroInicio;
-                _lista.Lista[_lista.PonteiroInicio] = valor;
+                _lista.Lista[address] = valor;
+                _lista.Indice[address] = -1;
             }
 
             else
             {
-                anterior = _lista.PonteiroInicio;
+                var anterior = -1;
                 var ponteiro = _lista.PonteiroInicio;
 
                 while (_lista.Indice[ponteiro] != -1)
@@ -59,12 +51,10 @@ namespace Revisao
                 anterior = ponteiro;
                 ponteiro = _lista.Indice[ponteiro];
 
-                if (address == 0)
-                    address = GetRandonFreeAddress(_lista);
-
                 _lista.Lista[address] = valor;
                 _lista.Indice[address] = -1;
                 _lista.Indice[anterior] = address;
+
             }
 
             return true;
@@ -74,15 +64,18 @@ namespace Revisao
         {
             if (indice == _lista.PonteiroInicio)
                 _lista.PonteiroInicio = _lista.Indice[indice];
-
             else
-            {
                 _lista.Indice[QuemAponta(indice)] = _lista.Indice[indice];
-                _lista.PonteiroDisponivel = indice;
-            }
 
             _lista.Indice[indice] = -2;
             _lista.Lista[indice] = string.Empty;
+            InserePonteiroDisponivel(indice);
+            FirstPonteiroDisponivel();
+        }
+
+        public RegChain ListLista()
+        {
+            return _lista;
         }
 
         private int QuemAponta(int paraMim)
@@ -99,19 +92,29 @@ namespace Revisao
             return anterior;
         }
 
-        private int GetRandonFreeAddress(RegChain regChain)
+        private int GetNextFreeAddress()
         {
             int address;
+            var ponteiro = FirstPonteiroDisponivel();
 
-            do
+            if (ponteiro > -1)
             {
-                address = _random.Next(0, regChain.Lista.Length);
-
-                if (regChain.Lista[address] == string.Empty)
-                    break;
+                address = _lista.PonteiroDisponivel[ponteiro];
+                _lista.PonteiroDisponivel[ponteiro] = -1;
             }
+                
+            else
+            {
+                do
+                {
+                    address = _random.Next(0, _lista.Lista.Length);
 
-            while (true);
+                    if (_lista.Lista[address] == string.Empty)
+                        break;
+                }
+
+                while (true);
+            }
 
             return address;
         }
@@ -127,9 +130,29 @@ namespace Revisao
             return contador;
         }
 
-        public RegChain ListLista()
+        private int FirstPonteiroDisponivel()
         {
-            return _lista;
+            var i = _maxSize - 1;
+            var endereço = -1;
+
+            while (i > -1)
+            {
+                if (_lista.PonteiroDisponivel[i] > -1)
+                {
+                    endereço = i;
+                     break;
+                }
+
+                i--;
+            }
+
+            return endereço;
+        }
+
+        private void InserePonteiroDisponivel(int endereço)
+        {
+            var pontoInsercao = FirstPonteiroDisponivel() + 1;
+            _lista.PonteiroDisponivel[pontoInsercao] = endereço;
         }
     }
 }
