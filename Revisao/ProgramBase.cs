@@ -54,7 +54,7 @@ namespace Revisao
 
                 while (!ehNumero)
                 {
-                    Console.WriteLine($"Digite o valor do {i + 1}º elemento:");
+                    Console.Write($"Digite o valor do {i + 1}º elemento:");
                     ehNumero = double.TryParse(Console.ReadLine(), out sortArray[i]);
                 }
             }
