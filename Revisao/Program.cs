@@ -13,16 +13,17 @@ namespace Revisao
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("Selecione uma opção: ");
                 Console.WriteLine("=============================");
-                Console.WriteLine("[0] Encerra");
-                Console.WriteLine("[1] Números Primos");
-                Console.WriteLine("[2] Boletim");
-                Console.WriteLine("[3] Novo Boletim");
-                Console.WriteLine("[4] Buble Sort");
-                Console.WriteLine("[5] Selection Sort");
-                Console.WriteLine("[6] Insection Sort");
-                Console.WriteLine("[7] Pesquisa");
-                Console.WriteLine("[8] Lista Sequencial Estática");
-                Console.WriteLine("[9] Lista Encadeada Dinâmica");
+                Console.WriteLine("[ 0] Encerra");
+                Console.WriteLine("[ 1] Boletim");
+                Console.WriteLine("[ 2] Novo Boletim");
+                Console.WriteLine("[ 3] Números Primos");
+                Console.WriteLine("[ 4] Buble Sort");
+                Console.WriteLine("[ 5] Selection Sort");
+                Console.WriteLine("[ 6] Insection Sort");
+                Console.WriteLine("[ 7] Pesquisa");
+                Console.WriteLine("[ 8] Lista Sequencial Estática");
+                Console.WriteLine("[ 9] Lista Encadeada Dinâmica");
+                Console.WriteLine("[10] Refresh");
                 Console.WriteLine("=============================");
                 Console.ForegroundColor = ConsoleColor.White;
 
@@ -37,14 +38,15 @@ namespace Revisao
                 switch (opcao)
                 {
                     case 1:
-                        XeqPrimo();
-                        break;
-                    case 2:
                         XeqBoletimEscolar();
                         break;
-                    case 3:
+                    case 2:
                         XeqNovoBoletim();
                         break;
+                    case 3:
+                        XeqPrimo();
+                        break;
+                    
                     case 4:
                         XeqBubbleSort();
                         break;
@@ -63,6 +65,9 @@ namespace Revisao
                     case 9:
                         XeqListaEncadeada();
                         break;
+                    case 10:
+                        Console.Clear();
+                        break;
 
                     default:
                         break;
@@ -72,34 +77,19 @@ namespace Revisao
             while (opcao > 0);
         }
 
-        private static void XeqPrimo()
-        {
-            ProgramBase.Cabecalho();
-            Console.WriteLine("Até que número deseja pesquisar?");
-            var teto = int.Parse(Console.ReadLine());
-            
-            for (int i = 2; i < teto; i++)
-            {
-                if (Numero.IsPrime(i))
-                    Console.WriteLine(i);
-            }
-
-            ProgramBase.Fim();
-        }
-
         private static void XeqBoletimEscolar()
         {
             var boletim = new BoletimEscolar();
 
             ProgramBase.Cabecalho();
 
-            Console.WriteLine("Nome do aluno: ");
+            Console.Write("Nome do aluno: ");
             boletim.Aluno = Console.ReadLine();
-            Console.WriteLine("1ª nota: ");
+            Console.Write("1ª nota: ");
             boletim.Nota1 = float.Parse(Console.ReadLine());
-            Console.WriteLine("2ª nota: ");
+            Console.Write("2ª nota: ");
             boletim.Nota2 = float.Parse(Console.ReadLine());
-            Console.WriteLine("3ª nota: ");
+            Console.Write("3ª nota: ");
             boletim.Nota3 = float.Parse(Console.ReadLine());
 
             ProgramBase.Cabecalho();
@@ -111,19 +101,34 @@ namespace Revisao
         {
             var boletim = new NovoBoletim();
 
-            Console.WriteLine("Nome do aluno: ");
+            Console.Write("Nome do aluno: ");
             boletim.Aluno = Console.ReadLine();
-            Console.WriteLine("Quantas notas: ");
+            Console.Write("Quantas notas: ");
             var num = int.Parse(Console.ReadLine());
 
             for (int i = 0; i < num; i++)
             {
-                Console.WriteLine($"{i + 1}ª nota: ");
+                Console.Write($"{i + 1}ª nota: ");
                 boletim.Notas.Add(float.Parse(Console.ReadLine()));
             }
 
             ProgramBase.Cabecalho();
             Console.WriteLine($"A média do aluno {boletim.Aluno} é {boletim.Media}");
+            ProgramBase.Fim();
+        }
+
+        private static void XeqPrimo()
+        {
+            ProgramBase.Cabecalho();
+            Console.Write("Até que número deseja pesquisar? ");
+            var teto = int.Parse(Console.ReadLine());
+            
+            for (int i = 2; i < teto; i++)
+            {
+                if (Numero.IsPrime(i))
+                    Console.WriteLine(i);
+            }
+
             ProgramBase.Fim();
         }
 
